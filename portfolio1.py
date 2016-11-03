@@ -27,15 +27,3 @@ class Portfolio(object):
                 break
         else:
             raise ValueError("You don't own that stock")
-
-    def sum_prices(self):
-        prices = []
-        for stock in self.stocks:
-            prices.append(stock[1] * stock[2])
-        return sum(prices)
-
-        # p = Portfolio()
-        # p.buy("IBM", 100, 120.10)
-        # p.buy("ADP", 200, 90.00)
-        # print(p.stocks)
-        # print(p.cost())

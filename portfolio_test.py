@@ -1,41 +1,52 @@
 import unittest
 from portfolio1 import Portfolio
 
+
 class PortfolioTestCase(unittest.TestCase):
     """Base class for all Portfolio tests."""
 
     def assertCostEqual(self, p, cost):
-        """Assert that `p`'s cost is equal to `cost`."""
+        """Assert that `p`'s cost is equal to `cost`.
+        Este metodo recebe dois parametros:
+        1: A instancia(obj) criada de Portfolio(). p = Portfolio()
+        2: O valor contra o qual sera feito o teste de igualdade.
+        Interessante notar que o metodo assertEqual 'e utilizado passando-se dois argumentos:
+        1: O metodo Portfolio.cost() que faz o calculo e retorna o valor total de todas as acoes possuidas.
+        2: O valor total esperado que sera comparado com o valor retornado do metodo Porfolio.cost()
+        Veja que nos metodos de testes, o metodo p.cost() nunca e passado, e sim apenas a instancia de
+        Portfolio() que 'e representada pela variavel 'p'. Com este objeto disponivel aqui, 'e possivel
+        utilizar o metodo cost() que veio junto com o objeto p de Portfolio(), ou qualquer outro metodo"""
+
         self.assertEqual(p.cost(), cost)
 
+
 class PortfolioTest(PortfolioTestCase):
+    def setUp(self):
+        self.p = Portfolio()
+
     def test_empty(self):
-        p = Portfolio()
-        assert p.cost() == "USD%d" % p.sum_prices()  # Sem utilizacao da base class
+        self.assertCostEqual(self.p, "USD%d" % 0.0)
 
     def test_buy_one_stock(self):
-        p = Portfolio()
-        p.buy("IBM", 100, 176.48)
-        self.assertCostEqual(p, "USD%d" % p.sum_prices()) # Utilizando este metodo, o teste mostra a diferenca qdo o teste da errado.
+        self.p.buy("IBM", 100, 176.48)
+        self.assertCostEqual(self.p, "USD%d" % 17648) # Utilizando este metodo, o teste mostra a diferenca qdo o teste da errado.
 
     def test_buy_two_stocks(self):
-        p = Portfolio()
-        p.buy("IBM", 100, 176.48)
-        p.buy("HPQ", 100, 36.15)
-        self.assertEqual(p.cost(), "USD%d" % 21263.0) # Sem utilizacao da base class
+        self.p.buy("IBM", 100, 176.47)
+        self.p.buy("HPQ", 100, 36.15)
+        self.assertEqual(self.p.cost(), "USD%d" % 21262.0)
 
     def test_bad_input(self):
-        p = Portfolio()
         with self.assertRaises(TypeError):
-            p.buy("IBM")
-
-    def test_total_sum(self):
-        p = Portfolio()
-        p.buy("IBM", 103, 176.48)
-        self.assertEqual(p.sum_prices(), 18177.44)
+            self.p.buy("IBM")
 
 class PortfolioSellTest(PortfolioTestCase):
     # Invoked before each test method
+    # O metodo setUp deve conter as configuracoes necessarias para rodar os testes seguintes.
+    # No exemplo abaixo por exemplo, nao e preciso criar uma instancia de Portfolio() em todos os
+    # metodos de testes, basta criar em setUp() e depois acessar apenas o self.p.
+    # Da mesma forma, todas as acoes sao compradas no setUp, assim nao precisa repetir nos testes.
+
     def setUp(self):
         self.p = Portfolio()
         self.p.buy("MSFT", 100, 27.0)
