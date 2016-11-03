@@ -11,23 +11,28 @@ class PortfolioTestCase(unittest.TestCase):
 class PortfolioTest(PortfolioTestCase):
     def test_empty(self):
         p = Portfolio()
-        assert p.cost() == "USD%d" % 0.0 # Sem utilizacao da base class
+        assert p.cost() == "USD%d" % p.sum_prices()  # Sem utilizacao da base class
 
     def test_buy_one_stock(self):
         p = Portfolio()
         p.buy("IBM", 100, 176.48)
-        self.assertCostEqual(p, "USD%d" % 17648.0) # Utilizando este metodo, o teste mostra a diferenca qdo o teste da errado.
+        self.assertCostEqual(p, "USD%d" % p.sum_prices()) # Utilizando este metodo, o teste mostra a diferenca qdo o teste da errado.
 
     def test_buy_two_stocks(self):
         p = Portfolio()
         p.buy("IBM", 100, 176.48)
         p.buy("HPQ", 100, 36.15)
-        assert p.cost() == "USD%d" % 21263.0 # Sem utilizacao da base class
+        self.assertEqual(p.cost(), "USD%d" % 21263.0) # Sem utilizacao da base class
 
     def test_bad_input(self):
         p = Portfolio()
         with self.assertRaises(TypeError):
             p.buy("IBM")
+
+    def test_total_sum(self):
+        p = Portfolio()
+        p.buy("IBM", 103, 176.48)
+        self.assertEqual(p.sum_prices(), 18177.44)
 
 class PortfolioSellTest(PortfolioTestCase):
     # Invoked before each test method
