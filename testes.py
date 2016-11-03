@@ -3,7 +3,7 @@ import list_sum
 
 # '''
 # Esta maneira de testar tambem funciona:
-#  - BOM:  O teste é repetivel com pouco esforço
+#  - BOM:  O teste é repetivel com pouco esforco
 #  - BOM:  O resultado esperado e checado automaticamente
 #  - OK:   A falha é visível, mas o output sai bagunçado
 #  - RUIM: Porém se um dos testes falhar, o restante dos testes nao serao executados.
