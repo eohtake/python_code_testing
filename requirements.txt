@@ -5,3 +5,4 @@ protobuf==3.0.0b2
 requests==2.11.1
 six==1.10.0
 zeroconf==0.17.6
+codeclimate-test-reporter
