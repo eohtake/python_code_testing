@@ -84,7 +84,8 @@ class PortfolioSellTest(PortfolioTestCase):
             self.p.sell("IBM", 1)
 
 
-
+if __name__ == '__main__':
+    unittest.main()
 
 
 

@@ -17,6 +17,7 @@ install: "pip install -r requirements.txt"
 script: nosetests --with-mocha-reporter
 
 
+
 addons:
     code_climate:
         repo_token: 44ec29df78875a70041cb4464600d8cc055f093f7276353a33b51a4944d30810
